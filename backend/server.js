@@ -17,7 +17,7 @@ import { cloudinary, upload } from './src/config/cloud-config.js';
 
 const app = express();
 app.use(cors({
-    origin: "https://tech-crt.netlify.app/",
+    origin: "https://tech-crt.netlify.app",
     credentials: true
 }));
 app.use(express.json());
