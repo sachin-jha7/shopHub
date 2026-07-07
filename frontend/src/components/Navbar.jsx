@@ -11,7 +11,7 @@ export default function Navbar() {
     }
 
     async function logout() {
-        const res = await fetch("http://localhost:8080/logout", {
+        const res = await fetch("https://shophub-backend-hw2g.onrender.com/logout", {
             credentials: "include"
         });
         const result = await res.json();
