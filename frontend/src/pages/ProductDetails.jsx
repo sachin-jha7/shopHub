@@ -12,7 +12,7 @@ export default function ProductDetails() {
 
     useEffect(() => {
         const loadData = async () => {
-            const res = await fetch("http://localhost:8080/", {
+            const res = await fetch("https://shophub-backend-hw2g.onrender.com/", {
                 credentials: "include"
             });
             const result = await res.json();
