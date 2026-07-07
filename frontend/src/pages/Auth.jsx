@@ -28,7 +28,7 @@ export default function AuthForm() {
             password: data.password
         }
         try {
-            const res = await fetch("http://localhost:8080/signup",
+            const res = await fetch("https://shophub-backend-hw2g.onrender.com/signup",
                 {
                     method: "POST",
                     headers: {
@@ -57,7 +57,7 @@ export default function AuthForm() {
             password: data.password
         }
         try {
-            const res = await fetch("http://localhost:8080/login",
+            const res = await fetch("https://shophub-backend-hw2g.onrender.com/login",
                 {
                     method: "POST",
                     headers: {
