@@ -30,7 +30,7 @@ export default function Admin() {
         formData.append("description", data.descp);
         formData.append("image", data.file[0])
 
-        const res = await fetch("http://localhost:8080/create", {
+        const res = await fetch("https://shophub-backend-hw2g.onrender.com/create", {
             method: "POST",
             body: formData,
             credentials: "include"
