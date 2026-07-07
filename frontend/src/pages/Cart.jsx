@@ -65,7 +65,7 @@ export default function Cart() {
 
     async function placeOrder() {
         try {
-            const res = await fetch("http://localhost:8080/place-order", {
+            const res = await fetch("https://shophub-backend-hw2g.onrender.com/place-order", {
                 credentials: "include"
             });
             const result = await res.json();
@@ -91,7 +91,7 @@ export default function Cart() {
 
     useEffect(() => {
         const loadData = async () => {
-            const res = await fetch("http://localhost:8080/", {
+            const res = await fetch("https://shophub-backend-hw2g.onrender.com/", {
                 credentials: "include"
             });
             const result = await res.json();
