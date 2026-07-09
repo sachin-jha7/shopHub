@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Admin() {
 
     const [previewUrl, setPriviewUrl] = useState(null);
+    const [btnState, setBtnState] = useState('idle');
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
@@ -23,23 +24,27 @@ export default function Admin() {
     }, [selectedFiles]);
 
     async function createNewProduct(data) {
-        console.log(data);
+        // console.log(data);
         const formData = new FormData();
         formData.append("name", data.text);
         formData.append("price", data.number);
         formData.append("description", data.descp);
         formData.append("image", data.file[0])
-
-        const res = await fetch("https://shophub-backend-hw2g.onrender.com/create", {
+        setBtnState("uploading");
+        const res = await fetch("http://localhost:8080/upload", {
             method: "POST",
             body: formData,
             credentials: "include"
         });
         const result = await res.json();
-        console.log(result);
-        if (result == "Product created successfully") {
-            navigate("/");
-        }
+        setBtnState("uploaded");
+        // console.log(result);
+        setTimeout(() => {
+            if (result.message == "Upload successfull") {
+                navigate("/");
+            }
+        }, 200);
+
     }
 
     return (
@@ -92,7 +97,13 @@ export default function Admin() {
                             <img src={previewUrl} alt="img" />
                         )
                     }
-                    <button className="btn btn-primary">Add to Product Grid</button>
+
+                    {
+                        btnState == 'idle' ? (<button className="btn btn-primary">Add to Product Grid</button>)
+                            : btnState == 'uploading' ? (<button className="btn btn-primary">Uploading...<i className="fa-solid fa-circle-notch fa-spin"></i></button>)
+                                : (<button style={{ backgroundColor: '#198754' }} className="btn btn-primary">&#10004; Uploaded</button>)
+                    }
+
                 </form>
             </div>
         </div>
