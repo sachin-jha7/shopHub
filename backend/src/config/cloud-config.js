@@ -4,7 +4,7 @@ import multer from 'multer';
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-console.log(process.env.CLOUD_API_KEY)
+
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
