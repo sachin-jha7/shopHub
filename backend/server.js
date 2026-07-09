@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import './env.js';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -59,11 +58,8 @@ app.get("/place-order", authMiddleware.verify, (req, res) => {
 });
 
 
-
-app.post("/create", upload.single("image"), (req, res) => {
+app.post("/upload", upload.single("image"), (req, res) => {
     const { name, price, description } = req.body;
-    // console.log(req.file)
-    // console.log(req.body.name);
     try {
         if (!req.file) {
             return res.status(500).json(`Error: No File`);
@@ -72,15 +68,21 @@ app.post("/create", upload.single("image"), (req, res) => {
             folder: "tech-products",
             resource_type: 'image'
         },
-            (error, result) => {
+            async (error, result) => {
                 if (error) {
                     console.log("Cloudinary upload error:", error);
                     return res.status(500).json({ error: "Cloudinary upload failed" });
                 }
+                
+                const newProduct = await new product({
+                    productName: name,
+                    productDescription: description,
+                    price: price,
+                    productImgUrl: result.secure_url
+                });
+                await newProduct.save();
                 res.status(200).json({
                     message: 'Upload successfull',
-                    url: result.secure_url,
-                    public_id: result.public_id
                 });
             }
         );
@@ -90,7 +92,8 @@ app.post("/create", upload.single("image"), (req, res) => {
     } catch (err) {
         res.status(500).json(`Error: ${err.message}`);
     }
-})
+});
+  
 
 app.get("/logout", authMiddleware.logout);
 
