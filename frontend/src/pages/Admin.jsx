@@ -31,7 +31,7 @@ export default function Admin() {
         formData.append("description", data.descp);
         formData.append("image", data.file[0])
         setBtnState("uploading");
-        const res = await fetch("http://localhost:8080/upload", {
+        const res = await fetch("https://shophub-backend-hw2g.onrender.com/upload", {
             method: "POST",
             body: formData,
             credentials: "include"
